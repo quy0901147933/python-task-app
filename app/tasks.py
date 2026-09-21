@@ -7,7 +7,7 @@ def complete_task(
             task["done"] = True 
             return True 
     return False
-def add_task(tasks: list[dict], title: str) -> dict:
+def add_task(tasks: list[dict], title: str) -> None:
     title = title.strip()
     if not title:
         raise ValueError("Nom du travail ne permet pas d'etre vide")
@@ -22,7 +22,6 @@ def add_task(tasks: list[dict], title: str) -> dict:
     }
 
     tasks.append(task)
-    return task 
 
 def show_tasks(tasks: list[dict]) -> None:
     if not tasks:
@@ -33,3 +32,19 @@ def show_tasks(tasks: list[dict]) -> None:
         print(
             f'{task["id"]}.{task["title"]} - {status}'
         )
+
+def rename_task(
+    tasks: list[dict],
+    task_id: int,
+    new_title: str,
+) -> bool:
+    new_title = new_title.strip()
+
+    if not new_title:
+        raise ValueError("Le titre ne peut pas être vide. ")
+    
+    for task in tasks:
+        if task["id"] == task_id:
+            task["title"] = new_title
+            return True
+    return False 
